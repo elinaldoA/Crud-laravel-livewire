@@ -2,9 +2,8 @@
 
 namespace App\Http\Livewire;
 
-use Illuminate\View\Component;
+use Livewire\Component;
 use App\Models\Post;
-use Illuminate\Http\Request;
 
 class Posts extends Component
 {
@@ -21,10 +20,10 @@ class Posts extends Component
         $this->titulo = '';
         $this->body = '';
     }
-    public function store(Request $request)
+    public function store()
     {
-        $validatedDate = $request->validate([
-            'titluo'=> 'required',
+        $validatedDate = $this->validate([
+            'titulo'=> 'required',
             'body'=> 'required',
         ]);
 
@@ -43,20 +42,20 @@ class Posts extends Component
 
         $this->updateMode = true;
     }
-    public function Cancelar()
+    public function cancelar()
     {
         $this->updateMode = false;
         $this->resetInputFields();
     }
-    public function Atualizar(Request $request)
+    public function update()
     {
-        $validatedDate = $request->validate([
-            'titluo'=> 'required',
+        $validatedDate = $this->validate([
+            'titulo'=> 'required',
             'body'=> 'required',
         ]);
 
         $post = Post::find($this->post_id);
-        $post->Atualizar([
+        $post->update([
             'titulo' => $this->titulo,
             'body' => $this->body,
         ]);
